@@ -112,6 +112,8 @@ const themeStylesheetOptions = [
   }
 ];
 const themeStylesheetFiles = new Set(themeStylesheetOptions.map((option) => option.file));
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const prototypeStartPath = `${basePath}/signin-register/`;
 
 export default function Home() {
   const [activeSettingsTab, setActiveSettingsTab] = useState("features");
@@ -304,7 +306,7 @@ export default function Home() {
             ref={previewRef}
             className="checkout-preview"
             title={`${currentViewport.label} checkout preview`}
-            src="/signin-register"
+            src={prototypeStartPath}
             onLoad={applyPreviewSettings}
           />
         </div>

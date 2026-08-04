@@ -1,28 +1,13 @@
-const checkoutPages = [
-  "delivery",
-  "enter-otp",
-  "order-complete",
-  "payment",
-  "payment-loading",
-  "signin-register",
-  "single-page",
-  "your-details"
-];
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  allowedDevOrigins: ["127.0.0.1"],
-  async rewrites() {
-    return checkoutPages.flatMap((page) => [
-      {
-        source: `/${page}`,
-        destination: `/${page}/index.html`
-      },
-      {
-        source: `/${page}/`,
-        destination: `/${page}/index.html`
-      }
-    ]);
+  output: "export",
+  trailingSlash: true,
+  basePath,
+  assetPrefix: basePath ? `${basePath}/` : undefined,
+  images: {
+    unoptimized: true
   }
 };
 

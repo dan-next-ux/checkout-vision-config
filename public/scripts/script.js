@@ -44,13 +44,32 @@
   }
 
   function routePath(path) {
-    const githubPagesBase = "/checkout-vision";
     const normalizedPath = path.startsWith("/") ? path : `/${path}`;
-    const isGithubPages = window.location.pathname === githubPagesBase || window.location.pathname.startsWith(`${githubPagesBase}/`);
-    if (!isGithubPages || normalizedPath.startsWith(`${githubPagesBase}/`)) {
+    const basePath = deploymentBasePath();
+    if (!basePath || normalizedPath.startsWith(`${basePath}/`)) {
       return normalizedPath;
     }
-    return `${githubPagesBase}${normalizedPath}`;
+    return `${basePath}${normalizedPath}`;
+  }
+
+  function deploymentBasePath() {
+    const checkoutPages = new Set([
+      "delivery",
+      "enter-otp",
+      "order-complete",
+      "payment",
+      "payment-loading",
+      "signin-register",
+      "single-page",
+      "your-details"
+    ]);
+    const [firstSegment = ""] = window.location.pathname.split("/").filter(Boolean);
+
+    return checkoutPages.has(firstSegment) ? "" : firstSegment ? `/${firstSegment}` : "";
+  }
+
+  function assetPath(path) {
+    return routePath(path);
   }
 
   function navigateTo(path) {
@@ -149,7 +168,7 @@
       typeof themeStylesheet === "string" && /^[A-Za-z0-9_-]+\.vars\.css$/.test(themeStylesheet)
         ? themeStylesheet
         : "Next_Revision.vars.css";
-    const stylesheetHref = `/styles/${stylesheetFile}`;
+    const stylesheetHref = assetPath(`/styles/${stylesheetFile}`);
     let themeLink = document.querySelector("link[data-theme-stylesheet], link[href*='.vars.css']");
 
     if (!themeLink) {
@@ -174,7 +193,7 @@
       <div class="remembered-card-summary">
         <div class="remembered-card-copy">
           <p>Debit/Credit Card</p>
-          <strong>Monzo &middot;&middot;&middot;&middot; 1234 <img class="remembered-logo remembered-logo-card" src="/images/payment/mastercard.svg" alt="Mastercard"></strong>
+          <strong>Monzo &middot;&middot;&middot;&middot; 1234 <img class="remembered-logo remembered-logo-card" src="${assetPath("/images/payment/mastercard.svg")}" alt="Mastercard"></strong>
         </div>
         <button class="remembered-change" type="button">Change</button>
       </div>
@@ -182,17 +201,17 @@
         <p>Other payment methods</p>
         <div class="remembered-methods-slot" data-remembered-methods-slot></div>
         <div class="remembered-payment-logos" aria-label="Other payment methods">
-          <img class="remembered-logo remembered-logo-nextpay" src="/images/payment/nextpay.svg" alt="nextpay">
-          <img class="remembered-logo remembered-logo-pay-in-3" src="/images/payment/pay-in-3.svg" alt="pay in 3">
+          <img class="remembered-logo remembered-logo-nextpay" src="${assetPath("/images/payment/nextpay.svg")}" alt="nextpay">
+          <img class="remembered-logo remembered-logo-pay-in-3" src="${assetPath("/images/payment/pay-in-3.svg")}" alt="pay in 3">
           <span class="remembered-apple-pay" aria-label="Apple Pay">
-            <img src="/images/payment/apple-pay-bg.svg" alt="">
-            <img src="/images/payment/apple-pay-mark.svg" alt="">
-            <img src="/images/payment/apple-pay-group-1.svg" alt="">
-            <img src="/images/payment/apple-pay-group-2.svg" alt="">
+            <img src="${assetPath("/images/payment/apple-pay-bg.svg")}" alt="">
+            <img src="${assetPath("/images/payment/apple-pay-mark.svg")}" alt="">
+            <img src="${assetPath("/images/payment/apple-pay-group-1.svg")}" alt="">
+            <img src="${assetPath("/images/payment/apple-pay-group-2.svg")}" alt="">
           </span>
-          <img class="remembered-logo remembered-logo-paypal" src="/images/payment/paypal.svg" alt="PayPal">
+          <img class="remembered-logo remembered-logo-paypal" src="${assetPath("/images/payment/paypal.svg")}" alt="PayPal">
           <span class="remembered-gift-card">
-            <img class="remembered-logo remembered-logo-giftcard" src="/images/payment/giftcard.svg" alt="">
+            <img class="remembered-logo remembered-logo-giftcard" src="${assetPath("/images/payment/giftcard.svg")}" alt="">
             <span>Gift Card</span>
           </span>
         </div>

@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Delivery | Checkout Vision</title>
-    <meta http-equiv="refresh" content="0; url=/delivery/">
+    <meta http-equiv="refresh" content="0; url=../delivery/">
     <script>
       sessionStorage.setItem("deliveryStage", "dates");
-      window.location.replace("/delivery/");
+      window.location.replace(new URL("../delivery/", window.location.href));
     </script>
   </head>
   <body>

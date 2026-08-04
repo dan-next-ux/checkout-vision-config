@@ -111,7 +111,7 @@ a {
 
 .theme-logo {
   height: 24px;
-  background-image: var(--icon-logo-default, url("/images/new-next-logo.svg"));
+  background-image: var(--icon-logo-default, url("../images/new-next-logo.svg"));
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
