@@ -38,8 +38,16 @@ jobs:
         env:
           NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
 
+      - name: Verify static export
+        run: |
+          test -f out/index.html
+          test -f out/signin-register/index.html
+          test -f out/scripts/script.js
+          grep -q "configurator-shell" out/index.html
+          ! grep -q "intended to be deployed" out/index.html
+
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
 
