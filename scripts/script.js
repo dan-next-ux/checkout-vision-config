@@ -221,7 +221,7 @@
           </span>
         </div>
       </div>
-      <button class="btn btn-primary remembered-pay-now" type="button" data-pay-now>PAY NOW</button>
+      <button class="btn btn-primary remembered-pay-now" type="button" data-pay-now data-remembered-pay-now>PAY NOW</button>
       <div class="remembered-payment-terms">
         <p>We will request payment for the full amount on completion of your order. By selecting a payment option you confirm that you have read, understood and accept our <a href="#">Terms &amp; Conditions</a>, <a href="#">Returns Policy</a> and <a href="#">Privacy Policy</a>.</p>
         <p>Next Online is a trading name of Next Retail Ltd, Leicester LE19 4AT</p>
@@ -250,6 +250,12 @@
           behavior: "smooth",
           block: "start"
         });
+      });
+
+      panel.querySelector("[data-remembered-pay-now]")?.addEventListener("click", () => {
+        seedExistingUserCheckoutDetails();
+        sessionStorage.setItem("accountMatchedSignin", "true");
+        navigateTo("/order-complete/");
       });
     }
 

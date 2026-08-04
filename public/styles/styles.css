@@ -642,7 +642,7 @@ a {
 }
 
 .existing-user-flow {
-  gap: 32px;
+  gap: 16px;
 }
 
 .existing-user-flow[hidden],
@@ -652,7 +652,7 @@ a {
 }
 
 .existing-user-screen {
-  gap: 32px;
+  gap: 6px;
 }
 
 .existing-user-intro {
