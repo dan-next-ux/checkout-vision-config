@@ -43,6 +43,11 @@
     return sessionStorage.getItem(key) || fallback;
   }
 
+  function isRecognisedAccountEmail(value) {
+    const email = value.trim().toLowerCase();
+    return email === "recognised@email.com" || /^[^\s@]+@next\.co\.uk$/.test(email);
+  }
+
   function routePath(path) {
     const normalizedPath = path.startsWith("/") ? path : `/${path}`;
     const basePath = deploymentBasePath();
@@ -405,7 +410,6 @@
     const applePayTrigger = document.querySelector("[data-apple-pay-trigger]");
     const applePayToast = document.querySelector("[data-apple-pay-toast]");
     const applePayComplete = document.querySelector("[data-apple-pay-complete]");
-    const recognisedEmail = "recognised@email.com";
     let existingScreen = "email";
 
     if (input) {
@@ -468,7 +472,7 @@
       }
 
       const identifier = input.value.trim();
-      const identifierIsRecognised = identifier.toLowerCase() === recognisedEmail;
+      const identifierIsRecognised = isRecognisedAccountEmail(identifier);
       sessionStorage.setItem("checkoutIdentifier", identifier);
       sessionStorage.setItem("accountMatchVisible", identifierIsRecognised ? "true" : "false");
       sessionStorage.setItem("accountMatchedSignin", "false");
@@ -563,7 +567,6 @@
     const accountPasswordToggle = document.querySelector("[data-account-password-toggle]");
     const accountSignIn = document.querySelector("[data-account-signin]");
     const storedIdentifier = sessionStorage.getItem("checkoutIdentifier");
-    const recognisedEmail = "recognised@email.com";
 
     email.value = storedValue("checkoutEmail", storedIdentifier && storedIdentifier.includes("@") ? storedIdentifier : "");
     setInputValue("#account-password", storedValue("accountMatchPassword"));
@@ -581,7 +584,7 @@
           setInvalid(row, false);
         }
         if (input === email) {
-          setAccountMatch(email.value.trim().toLowerCase() === recognisedEmail);
+          setAccountMatch(isRecognisedAccountEmail(email.value));
         }
       });
     });
@@ -613,10 +616,12 @@
       });
     }
 
-    setAccountMatch(email.value.trim().toLowerCase() === recognisedEmail && (storedValue("accountMatchVisible") === "true" || storedIdentifier?.trim().toLowerCase() === recognisedEmail));
+    setAccountMatch(isRecognisedAccountEmail(email.value) && (storedValue("accountMatchVisible") === "true" || isRecognisedAccountEmail(storedIdentifier || "")));
 
     accountSignIn?.addEventListener("click", () => {
-      seedOtpCheckoutDetails();
+      sessionStorage.setItem("checkoutIdentifier", email.value.trim());
+      sessionStorage.setItem("checkoutEmail", email.value.trim());
+      seedExistingUserCheckoutDetails();
       navigateTo("/payment/");
     });
 
@@ -658,8 +663,10 @@
   }
 
   function seedExistingUserCheckoutDetails() {
-    sessionStorage.setItem("checkoutIdentifier", "recognised@email.com");
-    sessionStorage.setItem("checkoutEmail", "recognised@email.com");
+    const matchedEmail = storedValue("checkoutIdentifier", storedValue("checkoutEmail", "recognised@email.com"));
+    const checkoutEmail = isRecognisedAccountEmail(matchedEmail) ? matchedEmail : "recognised@email.com";
+    sessionStorage.setItem("checkoutIdentifier", checkoutEmail);
+    sessionStorage.setItem("checkoutEmail", checkoutEmail);
     sessionStorage.setItem("accountMatchedSignin", "true");
     sessionStorage.setItem("checkoutFirstName", "Alex");
     sessionStorage.setItem("checkoutLastName", "Smith");
@@ -1865,7 +1872,7 @@
     }
 
     function recognised(value) {
-      return value.trim().toLowerCase() === "recognised@email.com";
+      return isRecognisedAccountEmail(value);
     }
 
     function renderAddressSuggestions() {
