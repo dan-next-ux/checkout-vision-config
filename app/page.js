@@ -196,6 +196,24 @@ export default function Home() {
 
         {activeSettingsTab === "features" ? (
           <div className="settings-content" id="features-panel" role="tabpanel" aria-label="Features">
+            <section className="settings-group" aria-labelledby="authentication-title">
+              <h2 id="authentication-title">Authentication</h2>
+              <label className="setting-row" htmlFor="existing-user-flow">
+                <span>Matched Account Redirect</span>
+                <span className="toggle-control">
+                  <input
+                    id="existing-user-flow"
+                    type="checkbox"
+                    checked={existingUserFlowEnabled}
+                    onChange={(event) => setExistingUserFlowEnabled(event.target.checked)}
+                  />
+                  <span className="toggle-track" aria-hidden="true">
+                    <span className="toggle-thumb" />
+                  </span>
+                </span>
+              </label>
+            </section>
+
             <section className="settings-group" aria-labelledby="payment-setup-title">
               <h2 id="payment-setup-title">Payment setup</h2>
               <label className="setting-row" htmlFor="express-payments">
@@ -220,20 +238,6 @@ export default function Home() {
                     type="checkbox"
                     checked={rememberLastPaymentEnabled}
                     onChange={(event) => setRememberLastPaymentEnabled(event.target.checked)}
-                  />
-                  <span className="toggle-track" aria-hidden="true">
-                    <span className="toggle-thumb" />
-                  </span>
-                </span>
-              </label>
-              <label className="setting-row" htmlFor="existing-user-flow">
-                <span>Existing User Flow</span>
-                <span className="toggle-control">
-                  <input
-                    id="existing-user-flow"
-                    type="checkbox"
-                    checked={existingUserFlowEnabled}
-                    onChange={(event) => setExistingUserFlowEnabled(event.target.checked)}
                   />
                   <span className="toggle-track" aria-hidden="true">
                     <span className="toggle-thumb" />

@@ -91,11 +91,11 @@ button {
 }
 
 .tab-icon-features {
-  mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.48 3.5a.6.6 0 0 1 1.04 0l2.15 4.36a.6.6 0 0 0 .45.33l4.81.7a.6.6 0 0 1 .33 1.02l-3.48 3.39a.6.6 0 0 0-.17.53l.82 4.79a.6.6 0 0 1-.87.63l-4.3-2.26a.6.6 0 0 0-.56 0l-4.3 2.26a.6.6 0 0 1-.87-.63l.82-4.79a.6.6 0 0 0-.17-.53L3.7 9.91a.6.6 0 0 1 .33-1.02l4.81-.7a.6.6 0 0 0 .45-.33L11.48 3.5Z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXN0YXItaWNvbiBsdWNpZGUtc3RhciI+PHBhdGggZD0iTTExLjUyNSAyLjI5NWEuNTMuNTMgMCAwIDEgLjk1IDBsMi4zMSA0LjY3OWEyLjEyMyAyLjEyMyAwIDAgMCAxLjU5NSAxLjE2bDUuMTY2Ljc1NmEuNTMuNTMgMCAwIDEgLjI5NC45MDRsLTMuNzM2IDMuNjM4YTIuMTIzIDIuMTIzIDAgMCAwLS42MTEgMS44NzhsLjg4MiA1LjE0YS41My41MyAwIDAgMS0uNzcxLjU2bC00LjYxOC0yLjQyOGEyLjEyMiAyLjEyMiAwIDAgMC0xLjk3MyAwTDYuMzk2IDIxLjAxYS41My41MyAwIDAgMS0uNzctLjU2bC44ODEtNS4xMzlhMi4xMjIgMi4xMjIgMCAwIDAtLjYxMS0xLjg3OUwyLjE2IDkuNzk1YS41My41MyAwIDAgMSAuMjk0LS45MDZsNS4xNjUtLjc1NWEyLjEyMiAyLjEyMiAwIDAgMCAxLjU5Ny0xLjE2eiIvPjwvc3ZnPg==") center / contain no-repeat;
 }
 
 .tab-icon-style {
-  mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 3a9 9 0 0 0 0 18h1.5a2.5 2.5 0 0 0 0-5H12a2 2 0 0 1-2-2 2 2 0 0 1 2-2h2a7 7 0 0 0 0-14h-2Z'/%3E%3Ccircle cx='7.5' cy='10' r='1'/%3E%3Ccircle cx='10' cy='6.5' r='1'/%3E%3Ccircle cx='15' cy='7.5' r='1'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXN3YXRjaC1ib29rLWljb24gbHVjaWRlLXN3YXRjaC1ib29rIj48cGF0aCBkPSJNMTEgMTdhNCA0IDAgMCAxLTggMFY1YTIgMiAwIDAgMSAyLTJoNGEyIDIgMCAwIDEgMiAyWiIvPjxwYXRoIGQ9Ik0xNi43IDEzSDE5YTIgMiAwIDAgMSAyIDJ2NGEyIDIgMCAwIDEtMiAySDciLz48cGF0aCBkPSJNIDcgMTdoLjAxIi8+PHBhdGggZD0ibTExIDggMi4zLTIuM2EyLjQgMi40IDAgMCAxIDMuNDA0LjAwNEwxOC42IDcuNmEyLjQgMi40IDAgMCAxIC4wMjYgMy40MzRMOS45IDE5LjgiLz48L3N2Zz4=") center / contain no-repeat;
 }
 
 .settings-content {
