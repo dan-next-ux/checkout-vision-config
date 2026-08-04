@@ -6,7 +6,7 @@ html {
   min-height: 100%;
   background: var(--background-paper);
   color: var(--text-primary);
-  font-family: "Next Display Text", Arial, sans-serif;
+  font-family: var(--global-body-1-font-family, "Next Display Text", Arial, sans-serif);
   font-size: 16px;
   line-height: 1.5;
 }
@@ -95,14 +95,26 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 84px;
-  height: 24px;
+  width: 100%;
+  height: 100%;
+}
+
+.brand-logo img,
+.theme-logo {
+  display: block;
+  width: 100%;
 }
 
 .brand-logo img {
-  display: block;
-  width: 83px;
   height: auto;
+}
+
+.theme-logo {
+  height: 24px;
+  background-image: var(--icon-logo-default, url("/images/new-next-logo.svg"));
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .icon-button {
@@ -157,7 +169,7 @@ a {
   padding: 0 2px;
   border-radius: 64px;
   color: var(--text-primary);
-  font-family: "Next Display Text", Arial, sans-serif;
+  font-family: var(--global-body-6-font-family, "Next Display Text", Arial, sans-serif);
   font-size: 10px;
   font-weight: 700;
   line-height: 14px;
@@ -177,10 +189,10 @@ a {
   margin: 0;
   padding-right: 44px;
   color: var(--text-primary);
-  font-family: "Next Display", Arial, sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 24px;
+  font-family: var(--global-h2-font-family, "Next Display", Arial, sans-serif);
+  font-size: var(--global-h2-font-size, 16px);
+  font-weight: var(--global-h2-font-weight, 700);
+  line-height: var(--global-h2-line-height, 24px);
   text-align: center;
 }
 
@@ -463,7 +475,7 @@ a {
 .completed-step h2,
 .delivery-step h2,
 .muted-step h2 {
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-size: 14px;
   font-weight: 700;
   line-height: 21px;
@@ -500,7 +512,7 @@ a {
   border-radius: var(--action-text-area-border-radius);
   background: var(--action-default-enabled-background-color);
   color: var(--text-primary);
-  font-family: "Next Display Text", Arial, sans-serif;
+  font-family: var(--global-body-1-font-family, "Next Display Text", Arial, sans-serif);
   font-size: 16px;
   line-height: 21px;
 }
@@ -549,15 +561,16 @@ a {
   width: 100%;
   min-height: 44px;
   margin: 0;
-  border: 1px solid transparent;
+  border: 1px solid var(--components-button-contained-primary-enabled-border-color, #000);
   border-radius: var(--components-button-default-border-radius);
-  font-family: "Next Display", Arial, sans-serif;
-  font-size: 14px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  line-height: 21px;
+  font-family: var(--component-button-large-font-family, "Next Display", Arial, sans-serif);
+  font-size: var(--component-button-large-font-size, 14px);
+  font-weight: var(--component-button-large-font-weight, 700);
+  letter-spacing: var(--component-button-large-letter-spacing, 0);
+  text-transform: var(--component-button-large-text-transform, none);
+  line-height: var(--component-button-large-line-height, 21px);
   text-align: center;
-  text-decoration: none;
+  text-decoration: var(--component-button-large-text-decoration, none);
   cursor: pointer;
 }
 
@@ -602,7 +615,7 @@ a {
 }
 
 .or-divider strong {
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 1px;
@@ -616,6 +629,313 @@ a {
   width: 100%;
   padding: 12px 16px;
   background: var(--background-main);
+}
+
+.existing-user-flow,
+.existing-user-screen,
+.existing-password-form,
+.existing-user-intro,
+.existing-signin-copy,
+.existing-password-heading {
+  display: flex;
+  flex-direction: column;
+}
+
+.existing-user-flow {
+  gap: 32px;
+}
+
+.existing-user-flow[hidden],
+.existing-user-screen[hidden],
+[data-standard-signin-flow][hidden] {
+  display: none;
+}
+
+.existing-user-screen {
+  gap: 32px;
+}
+
+.existing-user-intro {
+  gap: 0;
+}
+
+.existing-user-intro h2,
+.existing-password-heading h2 {
+  margin: 0;
+  font-family: var(--global-display-2-font-family, "Next Display", Arial, sans-serif);
+  font-size: var(--global-display-2-font-size, 20px);
+  font-weight: var(--global-display-2-font-weight, 500);
+  line-height: var(--global-display-2-line-height, 1.5);
+  letter-spacing: var(--global-display-2-letter-spacing, 0);
+}
+
+.existing-user-intro p,
+.existing-password-heading p {
+  margin: 0;
+  font-family: var(--global-subtitle-1-font-family, "Next Display Text", Arial, sans-serif);
+  font-size: var(--global-subtitle-1-font-size, 16px);
+  font-weight: var(--global-subtitle-1-font-weight, 400);
+  line-height: var(--global-subtitle-1-line-height, 1.5);
+  letter-spacing: var(--global-subtitle-1-letter-spacing, 0);
+}
+
+.existing-options-stack,
+.existing-password-method {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.existing-options-stack {
+  gap: 24px;
+}
+
+.existing-password-method {
+  gap: 12px;
+}
+
+.existing-signin-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.existing-signin-card-recommended {
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--primary-shades-4p, rgba(0, 0, 0, .04));
+}
+
+.existing-signin-card-compact {
+  min-height: 96px;
+}
+
+.existing-code-icon {
+  display: inline-flex;
+  flex: 0 0 48px;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--primary-shades-8p, rgba(0, 0, 0, .08));
+  color: var(--text-secondary, #616161);
+  font-family: var(--global-body-6-font-family, "Next Display Text", Arial, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 16px;
+  overflow: hidden;
+}
+
+.existing-code-icon img {
+  display: block;
+  width: 32px;
+  height: 32px;
+}
+
+.existing-password-choice .existing-code-icon img {
+  width: 30px;
+  height: 10px;
+}
+
+.existing-signin-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+}
+
+.existing-signin-card-recommended .existing-code-icon {
+  margin-top: 18px;
+}
+
+.existing-signin-copy {
+  flex: 1 1 auto;
+  gap: 0;
+  min-width: 0;
+  justify-content: center;
+}
+
+.existing-signin-copy h3 {
+  margin: 0;
+  font-family: var(--global-h2-font-family, "Next Display", Arial, sans-serif);
+  font-size: var(--global-h2-font-size, 16px);
+  font-weight: var(--global-h2-font-weight, 500);
+  line-height: var(--global-h2-line-height, 1.5);
+  letter-spacing: var(--global-h2-letter-spacing, 0);
+}
+
+.existing-signin-copy p {
+  margin: 0;
+  font-family: var(--global-subtitle-1-font-family, "Next Display Text", Arial, sans-serif);
+  font-size: var(--global-subtitle-1-font-size, 16px);
+  font-weight: var(--global-subtitle-1-font-weight, 400);
+  line-height: var(--global-subtitle-1-line-height, 1.5);
+  letter-spacing: var(--global-subtitle-1-letter-spacing, 0);
+}
+
+.existing-card-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--global-body-2-font-family, "Next Display Text", Arial, sans-serif);
+  font-size: var(--global-body-2-font-size, 12px);
+  font-weight: var(--global-body-2-font-weight, 400);
+  line-height: var(--global-body-2-line-height, 1.5);
+  letter-spacing: var(--global-body-2-letter-spacing, 0);
+  text-transform: none;
+}
+
+.existing-card-kicker img {
+  width: 12px;
+  height: 12px;
+}
+
+.existing-divider {
+  padding: 0 0 2px;
+}
+
+.existing-divider strong {
+  color: var(--text-primary);
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.existing-link-button,
+.existing-change-button,
+.existing-forgotten-link,
+.existing-otp-fallback button,
+.existing-otp-fallback a {
+  color: var(--text-primary);
+  font-family: var(--global-body-3-link-font-family, "Next Display Text", Arial, sans-serif);
+  font-size: var(--global-body-3-link-font-size, 14px);
+  font-weight: var(--global-body-3-link-font-weight, 500);
+  line-height: var(--global-body-3-link-line-height, 1.5);
+  letter-spacing: var(--global-body-3-link-letter-spacing, 0);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.existing-link-button,
+.existing-change-button,
+.existing-otp-fallback button {
+  appearance: none;
+  align-self: center;
+  width: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.existing-link-button {
+  margin-top: -1px;
+}
+
+.existing-signin-card-recommended .btn,
+.existing-password-choice-button {
+  min-height: 44px;
+  padding: 12px 24px;
+}
+
+.existing-signin-card-recommended .btn {
+  border-color: var(--components-button-contained-primary-enabled-border-color, #000);
+  background: var(--components-button-contained-primary-enabled-background-color, #000);
+  color: var(--components-button-contained-primary-enabled-contrast-text-color, #fff);
+}
+
+.existing-password-choice-button {
+  border-color: var(--components-button-outlined-primary-enabled-border-color, #000);
+  background: var(--components-button-outlined-primary-enabled-background-color, #fff);
+  color: var(--components-button-outlined-primary-enabled-contrast-text-color, #000);
+}
+
+.existing-user-screen[data-existing-screen="password"] {
+  gap: 16px;
+}
+
+.existing-user-screen[data-existing-screen="password"] .existing-signin-card {
+  align-items: center;
+  gap: 12px;
+  min-height: 96px;
+  padding: 12px;
+  border: 1px solid var(--action-default-enabled-border-color, #949494);
+  background: var(--background-paper);
+}
+
+.existing-user-screen[data-existing-screen="password"] .existing-signin-copy h3 {
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 21px;
+}
+
+.existing-user-screen[data-existing-screen="password"] .existing-signin-copy p {
+  margin-bottom: 8px;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.existing-password-heading {
+  position: relative;
+  gap: 2px;
+  min-height: 44px;
+  padding-right: 72px;
+}
+
+.existing-change-button {
+  position: absolute;
+  top: 12px;
+  right: 0;
+}
+
+.existing-password-form {
+  gap: 12px;
+}
+
+.existing-password-row {
+  display: flex;
+  width: 100%;
+}
+
+.existing-password-row .text-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border-radius: var(--action-text-area-border-radius) 0 0 var(--action-text-area-border-radius);
+}
+
+.existing-password-toggle {
+  appearance: none;
+  display: inline-flex;
+  flex: 0 0 44px;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  min-height: 44px;
+  border: 1px solid var(--action-default-enabled-border-color, #949494);
+  border-left: 0;
+  border-radius: 0 var(--action-text-area-border-radius) var(--action-text-area-border-radius) 0;
+  background: var(--action-default-enabled-background-color, #fff);
+  cursor: pointer;
+}
+
+.existing-password-toggle img {
+  width: 20px;
+  height: 20px;
+}
+
+.existing-forgotten-link {
+  align-self: flex-start;
 }
 
 .express-block {
@@ -681,7 +1001,7 @@ a {
 .apple-pay-toast p {
   margin: 0;
   color: var(--text-primary);
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-size: 18px;
   font-weight: 700;
   line-height: 27px;
@@ -689,13 +1009,122 @@ a {
 }
 
 .otp-main {
+  position: relative;
   padding: 16px;
+}
+
+.existing-otp-flow-enabled .otp-main {
+  gap: 20px;
+  padding-top: 16px;
 }
 
 .otp-panel {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.existing-otp-flow-enabled .otp-heading {
+  display: none;
+}
+
+.existing-otp-notification {
+  position: absolute;
+  z-index: 10;
+  top: 8px;
+  left: 50%;
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
+  gap: 10px;
+  width: min(calc(100% - 32px), 320px);
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--action-default-enabled-border-color, #949494);
+  border-radius: 8px;
+  background: var(--background-paper);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, .12);
+  opacity: 0;
+  transform: translate(-50%, -24px);
+  transition: opacity .28s ease, transform .28s ease;
+}
+
+.existing-otp-notification.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.existing-otp-notification[hidden],
+.existing-message-panel[hidden],
+.existing-otp-copy[hidden],
+.existing-otp-expiry[hidden],
+.existing-otp-fallback[hidden],
+[data-default-otp-copy][hidden],
+[data-default-otp-expiry][hidden],
+[data-default-otp-fallback][hidden],
+[data-otp-continue][hidden] {
+  display: none;
+}
+
+.existing-otp-toast-icon {
+  width: 30px;
+  height: 30px;
+  background: var(--primary-shades-8p, rgba(0, 0, 0, .08));
+}
+
+.existing-otp-notification strong,
+.existing-otp-notification p,
+.existing-otp-notification small {
+  margin: 0;
+  font-size: 11px;
+  line-height: 14px;
+}
+
+.existing-otp-notification p,
+.existing-otp-notification small {
+  color: var(--text-secondary, #616161);
+}
+
+.existing-otp-copy {
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
+  font-weight: 700;
+}
+
+.existing-otp-flow-enabled .otp-form {
+  gap: 0;
+}
+
+.existing-otp-flow-enabled .otp-code {
+  grid-template-columns: repeat(6, 44px);
+  justify-content: flex-start;
+}
+
+.existing-otp-flow-enabled .otp-input {
+  height: 52px;
+  font-size: 28px;
+  line-height: 36px;
+}
+
+.existing-message-panel {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 248px;
+  margin: 28px -16px -16px;
+  padding: 16px;
+  background: var(--background-main, #f7f7f7);
+  text-align: center;
+}
+
+.existing-message-panel p,
+.existing-message-panel strong {
+  margin: 0;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.existing-message-panel > strong {
+  padding-bottom: 96px;
 }
 
 .otp-heading {
@@ -711,7 +1140,7 @@ a {
 
 .otp-heading h2 {
   margin: 0;
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-size: 20px;
   font-weight: 700;
   line-height: 30px;
@@ -760,7 +1189,7 @@ a {
   border-radius: 4px;
   background: var(--action-default-enabled-background-color);
   color: var(--text-primary);
-  font-family: "Next Display Text", Arial, sans-serif;
+  font-family: var(--global-body-1-font-family, "Next Display Text", Arial, sans-serif);
   font-size: 32px;
   line-height: 57px;
   text-align: center;
@@ -929,7 +1358,7 @@ a {
 
 .account-forgotten {
   color: var(--text-primary);
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-size: 14px;
   font-weight: 700;
   line-height: 21px;
@@ -951,7 +1380,7 @@ a {
 }
 
 .account-divider strong {
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 1px;
@@ -1069,7 +1498,7 @@ a {
 
 .completed-step-body a {
   flex: 0 0 auto;
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-size: 14px;
   font-weight: 700;
   line-height: 21px;
@@ -1127,7 +1556,7 @@ a {
 .delivery-option strong {
   display: block;
   overflow: hidden;
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-size: 14px;
   font-weight: 700;
   line-height: 18px;
@@ -1175,7 +1604,7 @@ a {
   display: none;
   margin: 0;
   color: var(--error-main, #d0021b);
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-size: 18px;
   font-weight: 700;
   line-height: 1;
@@ -1199,7 +1628,7 @@ a {
 }
 
 .deliver-to strong {
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-weight: 700;
 }
 
@@ -1226,7 +1655,7 @@ a {
   background: transparent;
   color: var(--text-primary);
   cursor: pointer;
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-size: 14px;
   font-weight: 700;
   line-height: 21px;
@@ -1374,7 +1803,7 @@ a {
 
 .collection-results h3 {
   margin: 0;
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-size: 16px;
   font-weight: 700;
   line-height: 24px;
@@ -1422,7 +1851,7 @@ a {
 }
 
 .collection-store-copy strong {
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-size: 14px;
   font-weight: 700;
   line-height: 20px;
@@ -1461,7 +1890,7 @@ a {
 }
 
 .parcel-label strong {
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-size: 14px;
   line-height: 21px;
   white-space: nowrap;
@@ -1519,7 +1948,7 @@ a {
 }
 
 .date-picker-panel h3 {
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-size: 15px;
   font-weight: 700;
   line-height: 22px;
@@ -1564,7 +1993,7 @@ a {
 }
 
 .date-chip span {
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-size: 14px;
   line-height: 21px;
 }
@@ -1690,7 +2119,7 @@ a {
 }
 
 .payment-copy strong {
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-size: 14px;
   font-weight: 700;
   line-height: 21px;
@@ -1714,7 +2143,7 @@ a {
   border-radius: var(--components-button-default-border-radius);
   background: var(--secondary-main, #000);
   color: var(--text-contrast, #fff);
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-size: 12px;
   font-weight: 700;
   line-height: 18px;
@@ -1763,6 +2192,185 @@ a {
   border: 2px solid var(--primary-main);
   border-radius: var(--action-default-border-radius, 22px);
   background: var(--primary-shades-8p);
+}
+
+.remembered-payment-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  color: var(--text-primary);
+}
+
+.remembered-card-summary {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding-top: 8px;
+}
+
+.remembered-card-copy {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.remembered-card-copy p,
+.remembered-other-methods p,
+.remembered-payment-terms p {
+  margin: 0;
+}
+
+.remembered-card-copy p,
+.remembered-other-methods p {
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.remembered-card-copy strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 21px;
+  white-space: nowrap;
+}
+
+.remembered-change {
+  appearance: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 21px;
+  text-decoration: underline;
+  text-underline-position: from-font;
+}
+
+.remembered-other-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.remembered-methods-slot {
+  width: 100%;
+}
+
+.remembered-payment-panel.is-expanded .remembered-other-methods {
+  gap: 8px;
+}
+
+.remembered-payment-panel.is-expanded .remembered-payment-logos {
+  display: none;
+}
+
+.remembered-payment-logos {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 24px;
+  overflow: hidden;
+}
+
+.remembered-logo {
+  display: block;
+  flex: 0 0 auto;
+}
+
+.remembered-logo-card {
+  width: 26px;
+  height: 16px;
+}
+
+.remembered-logo-nextpay,
+.remembered-logo-pay-in-3 {
+  width: 43px;
+  height: 16px;
+}
+
+.remembered-logo-paypal {
+  width: 17px;
+  height: 20px;
+}
+
+.remembered-apple-pay {
+  position: relative;
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 25px;
+  height: 16px;
+  overflow: hidden;
+}
+
+.remembered-apple-pay img {
+  position: absolute;
+  display: block;
+}
+
+.remembered-apple-pay img:first-child {
+  inset: 0;
+  width: 25px;
+  height: 16px;
+}
+
+.remembered-apple-pay img:nth-child(2) {
+  inset: 1px;
+  width: 23px;
+  height: 14px;
+}
+
+.remembered-apple-pay img:nth-child(3) {
+  top: 4px;
+  left: 3px;
+  width: 5px;
+  height: 8px;
+}
+
+.remembered-apple-pay img:nth-child(4) {
+  top: 5px;
+  right: 3px;
+  width: 12px;
+  height: 8px;
+}
+
+.remembered-gift-card {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-primary);
+  font-size: 12px;
+  line-height: 18px;
+  white-space: nowrap;
+}
+
+.remembered-logo-giftcard {
+  width: 24px;
+  height: 24px;
+}
+
+.remembered-pay-now {
+  min-height: 44px;
+}
+
+.remembered-payment-terms {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  font-size: 12px;
+  line-height: 18px;
 }
 
 .card-panel-header {
@@ -2089,7 +2697,7 @@ a {
   justify-content: center;
   height: 44px;
   padding: 0 8px;
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-size: 14px;
   font-weight: 700;
   line-height: 21px;
@@ -2165,7 +2773,7 @@ a {
 .complete-title-row h1 {
   flex: 1 1 auto;
   min-width: 0;
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-size: 18px;
   font-weight: 800;
   letter-spacing: 1px;
@@ -2180,7 +2788,7 @@ a {
   border: 0;
   background: transparent;
   color: var(--text-primary);
-  font-family: "Next Display Text", Arial, sans-serif;
+  font-family: var(--global-body-1-font-family, "Next Display Text", Arial, sans-serif);
   font-size: 14px;
   font-weight: 700;
   line-height: 21px;
@@ -2226,7 +2834,7 @@ a {
 .complete-order-title-row strong,
 .complete-order-title-row span {
   color: var(--text-primary);
-  font-family: "Next Display Text", Arial, sans-serif;
+  font-family: var(--global-body-1-font-family, "Next Display Text", Arial, sans-serif);
   font-size: 14px;
   font-weight: 700;
   line-height: 21px;
@@ -2264,7 +2872,7 @@ a {
 .complete-order-detail h2 {
   margin: 0;
   color: var(--text-primary);
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-size: 15px;
   font-weight: 700;
   line-height: 22px;
@@ -2428,7 +3036,7 @@ a {
 }
 
 .signup-panel h2 {
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-size: 16px;
   font-weight: 700;
   line-height: 24px;
@@ -2516,7 +3124,7 @@ a {
 
 .passkey-heading h2 {
   margin: 0;
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 1px;
@@ -2578,7 +3186,7 @@ a {
 }
 
 .recommendations h2 {
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-size: 14px;
   font-weight: 700;
   line-height: 21px;
@@ -2707,7 +3315,7 @@ a {
   border: 0;
   background: var(--components-menu-default-enabled-background-color, #fff);
   color: var(--components-menu-default-enabled-text-color, #000);
-  font-family: "Next Display Text", Arial, sans-serif;
+  font-family: var(--global-body-1-font-family, "Next Display Text", Arial, sans-serif);
   font-size: 14px;
   line-height: 21px;
   text-align: left;
@@ -2742,7 +3350,7 @@ a {
   border: 0;
   background: var(--background-main);
   color: var(--text-primary);
-  font-family: "Next Display", Arial, sans-serif;
+  font-family: var(--global-body-5-font-family, "Next Display", Arial, sans-serif);
   font-size: 14px;
   font-weight: 700;
   line-height: 21px;
