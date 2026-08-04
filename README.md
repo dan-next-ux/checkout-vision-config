@@ -78,6 +78,8 @@ This project is configured for GitHub Pages static export.
 3. Set **Build and deployment > Source** to **GitHub Actions**.
 4. Push to `main` or run the workflow manually.
 
+Do not use **Deploy from a branch** for this repo. That can serve the raw project files instead of the exported Next.js app.
+
 The workflow builds the static site into `out/` and deploys that folder to GitHub Pages. It automatically sets `NEXT_PUBLIC_BASE_PATH` to the repository name so the app works at:
 
 ```text
