@@ -672,11 +672,11 @@ a {
 .existing-user-intro p,
 .existing-password-heading p {
   margin: 0;
-  font-family: var(--global-subtitle-1-font-family, "Next Display Text", Arial, sans-serif);
-  font-size: var(--global-subtitle-1-font-size, 16px);
-  font-weight: var(--global-subtitle-1-font-weight, 400);
-  line-height: var(--global-subtitle-1-line-height, 1.5);
-  letter-spacing: var(--global-subtitle-1-letter-spacing, 0);
+  font-family: var(--global-body-1-font-family, "Next Display Text", Arial, sans-serif);
+  font-size: var(--global-body-1-font-size, 16px);
+  font-weight: var(--global-body-1-font-weight, 400);
+  line-height: var(--global-body-1-line-height, 1.5);
+  letter-spacing: var(--global-body-1-letter-spacing, 0);
 }
 
 .existing-options-stack,
