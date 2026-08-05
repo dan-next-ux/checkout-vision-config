@@ -214,6 +214,51 @@
     }
   }
 
+  function setPaymentMethodSelected(method, selected) {
+    if (!method) {
+      return;
+    }
+
+    method.classList.toggle("is-selected", selected);
+    method.setAttribute("aria-checked", selected ? "true" : "false");
+  }
+
+  function setSavedCardPaymentLabels(isSavedCardFlow) {
+    const label = isSavedCardFlow ? "Add New Credit/Debit Card" : "Credit / Debit Card";
+
+    document.querySelectorAll("[data-payment-method='card'] .payment-copy strong, [data-config-payment-panel='card'] .payment-copy strong").forEach((target) => {
+      target.textContent = label;
+    });
+
+    const cardPanel = document.querySelector("[data-config-payment-panel='card']");
+    if (cardPanel) {
+      cardPanel.setAttribute("aria-label", `${label} details`);
+    }
+  }
+
+  function applyRememberedExpandedPaymentState(config = {}) {
+    const rememberedType = rememberedPaymentTypeFromConfig(config);
+    const rememberedMethod = rememberedType === "card" ? null : document.querySelector(`[data-config-payment-method='${rememberedType}']`);
+    const cardButton = document.querySelector("[data-payment-method='card']");
+    const cardPanel = document.querySelector("[data-config-payment-panel='card']");
+
+    setSavedCardPaymentLabels(rememberedType === "card");
+
+    document.querySelectorAll(".payment-method").forEach((method) => {
+      setPaymentMethodSelected(method, method === rememberedMethod);
+    });
+
+    if (rememberedMethod) {
+      rememberedMethod.hidden = false;
+    }
+
+    if (cardButton && cardPanel && rememberedType !== "card") {
+      cardButton.hidden = config.paymentMethods?.card === false;
+      cardButton.setAttribute("aria-expanded", "false");
+      cardPanel.hidden = true;
+    }
+  }
+
   function navigateTo(path) {
     window.location.href = routePath(path);
   }
@@ -453,9 +498,11 @@
     if (rememberedPaymentEnabled) {
       if (rememberedPaymentExpanded) {
         applyPaymentMethodConfig(config);
+        applyRememberedExpandedPaymentState(config);
         return;
       }
 
+      setSavedCardPaymentLabels(false);
       paymentMethods?.querySelectorAll(".payment-method, .card-panel").forEach((method) => {
         method.classList.remove("is-selected");
         method.setAttribute("aria-checked", "false");
@@ -475,6 +522,7 @@
       rememberedPaymentPanel.classList.remove("is-expanded");
     }
 
+    setSavedCardPaymentLabels(false);
     applyPaymentMethodConfig(config);
   }
 
