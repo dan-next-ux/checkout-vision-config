@@ -77,6 +77,143 @@
     return routePath(path);
   }
 
+  function paymentLogoMarkup(method) {
+    const logos = {
+      nextpay: `<img class="remembered-logo remembered-logo-nextpay" src="${assetPath("/images/payment/nextpay.svg")}" alt="nextpay">`,
+      "pay-in-3": `<img class="remembered-logo remembered-logo-pay-in-3" src="${assetPath("/images/payment/pay-in-3.svg")}" alt="pay in 3">`,
+      mastercard: `<img class="remembered-logo remembered-logo-card" src="${assetPath("/images/payment/mastercard.svg")}" alt="Mastercard">`,
+      visa: `<span class="remembered-logo remembered-logo-visa" aria-label="Visa">VISA</span>`,
+      "apple-pay": `
+        <span class="remembered-apple-pay" aria-label="Apple Pay">
+          <img src="${assetPath("/images/payment/apple-pay-bg.svg")}" alt="">
+          <img src="${assetPath("/images/payment/apple-pay-mark.svg")}" alt="">
+          <img src="${assetPath("/images/payment/apple-pay-group-1.svg")}" alt="">
+          <img src="${assetPath("/images/payment/apple-pay-group-2.svg")}" alt="">
+        </span>
+      `,
+      paypal: `<img class="remembered-logo remembered-logo-paypal" src="${assetPath("/images/payment/paypal.svg")}" alt="PayPal">`,
+      giftcard: `
+        <span class="remembered-gift-card">
+          <img class="remembered-logo remembered-logo-giftcard" src="${assetPath("/images/payment/giftcard.svg")}" alt="">
+          <span>Gift Card</span>
+        </span>
+      `
+    };
+
+    return logos[method] || "";
+  }
+
+  function rememberedPaymentTypeFromConfig(config = {}) {
+    return ["card", "apple-pay", "paypal", "nextpay"].includes(config.rememberedPaymentType)
+      ? config.rememberedPaymentType
+      : "card";
+  }
+
+  function rememberedSummaryMarkup(type) {
+    if (type === "apple-pay") {
+      return `
+        <div class="remembered-card-copy">
+          <strong>Apple Pay ${paymentLogoMarkup("apple-pay")}</strong>
+        </div>
+      `;
+    }
+
+    if (type === "paypal") {
+      return `
+        <div class="remembered-card-copy">
+          <strong>PayPal ${paymentLogoMarkup("paypal")}</strong>
+        </div>
+      `;
+    }
+
+    if (type === "nextpay") {
+      return `
+        <div class="remembered-card-copy">
+          <strong>Next Pay ${paymentLogoMarkup("nextpay")}</strong>
+        </div>
+      `;
+    }
+
+    return `
+      <div class="remembered-card-copy">
+        <p>Debit/Credit Card</p>
+        <strong>Monzo &middot;&middot;&middot;&middot; 1234 ${paymentLogoMarkup("mastercard")}</strong>
+      </div>
+    `;
+  }
+
+  function rememberedOtherPaymentMethods(type, config = {}) {
+    const enabledMethods = config.paymentMethods || {};
+    const isEnabled = (method) => enabledMethods[method] !== false;
+
+    if (type === "nextpay") {
+      return isEnabled("giftcard") ? ["giftcard"] : [];
+    }
+
+    const methods = [];
+
+    if (isEnabled("nextpay") && type !== "nextpay") {
+      methods.push("nextpay");
+    }
+    if (isEnabled("pay-in-3")) {
+      methods.push("pay-in-3");
+    }
+    if (isEnabled("card") && type !== "card") {
+      methods.push("mastercard", "visa");
+    }
+    if (isEnabled("apple-pay") && type !== "apple-pay") {
+      methods.push("apple-pay");
+    }
+    if (isEnabled("paypal") && type !== "paypal") {
+      methods.push("paypal");
+    }
+    if (isEnabled("giftcard")) {
+      methods.push("giftcard");
+    }
+
+    return methods;
+  }
+
+  function renderRememberedPaymentPanel(panel, config = {}) {
+    if (!panel) {
+      return;
+    }
+
+    const type = rememberedPaymentTypeFromConfig(config);
+    const summary = panel.querySelector("[data-remembered-summary]");
+    const logos = panel.querySelector("[data-remembered-logos]");
+    const payButton = panel.querySelector("[data-remembered-pay-now]");
+    const paymentMethods = rememberedOtherPaymentMethods(type, config);
+
+    panel.dataset.rememberedPaymentType = type;
+    if (summary) {
+      summary.innerHTML = `
+        ${rememberedSummaryMarkup(type)}
+        <button class="remembered-change" type="button">Change</button>
+      `;
+      summary.classList.toggle("is-single-line", type !== "card");
+    }
+    if (logos) {
+      logos.innerHTML = paymentMethods.map(paymentLogoMarkup).join("");
+      logos.hidden = paymentMethods.length === 0;
+    }
+
+    if (!payButton) {
+      return;
+    }
+
+    payButton.classList.toggle("remembered-pay-now-apple", type === "apple-pay");
+    payButton.classList.toggle("remembered-pay-now-paypal", type === "paypal");
+
+    if (type === "apple-pay") {
+      payButton.innerHTML = "Buy with Apple Pay";
+    } else if (type === "paypal") {
+      payButton.innerHTML = 'Pay with <span class="remembered-paypal-button-wordmark">PayPal</span>';
+    } else {
+      payButton.textContent = "PAY NOW";
+    }
+  }
+
   function navigateTo(path) {
     window.location.href = routePath(path);
   }
@@ -195,31 +332,11 @@
     panel.setAttribute("data-remembered-payment-panel", "");
     panel.hidden = true;
     panel.innerHTML = `
-      <div class="remembered-card-summary">
-        <div class="remembered-card-copy">
-          <p>Debit/Credit Card</p>
-          <strong>Monzo &middot;&middot;&middot;&middot; 1234 <img class="remembered-logo remembered-logo-card" src="${assetPath("/images/payment/mastercard.svg")}" alt="Mastercard"></strong>
-        </div>
-        <button class="remembered-change" type="button">Change</button>
-      </div>
+      <div class="remembered-card-summary" data-remembered-summary></div>
       <div class="remembered-other-methods">
         <p>Other payment methods</p>
         <div class="remembered-methods-slot" data-remembered-methods-slot></div>
-        <div class="remembered-payment-logos" aria-label="Other payment methods">
-          <img class="remembered-logo remembered-logo-nextpay" src="${assetPath("/images/payment/nextpay.svg")}" alt="nextpay">
-          <img class="remembered-logo remembered-logo-pay-in-3" src="${assetPath("/images/payment/pay-in-3.svg")}" alt="pay in 3">
-          <span class="remembered-apple-pay" aria-label="Apple Pay">
-            <img src="${assetPath("/images/payment/apple-pay-bg.svg")}" alt="">
-            <img src="${assetPath("/images/payment/apple-pay-mark.svg")}" alt="">
-            <img src="${assetPath("/images/payment/apple-pay-group-1.svg")}" alt="">
-            <img src="${assetPath("/images/payment/apple-pay-group-2.svg")}" alt="">
-          </span>
-          <img class="remembered-logo remembered-logo-paypal" src="${assetPath("/images/payment/paypal.svg")}" alt="PayPal">
-          <span class="remembered-gift-card">
-            <img class="remembered-logo remembered-logo-giftcard" src="${assetPath("/images/payment/giftcard.svg")}" alt="">
-            <span>Gift Card</span>
-          </span>
-        </div>
+        <div class="remembered-payment-logos" data-remembered-logos aria-label="Other payment methods"></div>
       </div>
       <button class="btn btn-primary remembered-pay-now" type="button" data-pay-now data-remembered-pay-now>PAY NOW</button>
       <div class="remembered-payment-terms">
@@ -242,8 +359,10 @@
       panel = createRememberedPaymentPanel();
       paymentMethods.insertAdjacentElement("afterend", panel);
 
-      const changeButton = panel.querySelector(".remembered-change");
-      changeButton?.addEventListener("click", () => {
+      panel.querySelector("[data-remembered-summary]")?.addEventListener("click", (event) => {
+        if (!event.target.closest(".remembered-change")) {
+          return;
+        }
         panel.dataset.accordionExpanded = "true";
         applyCheckoutConfig(window.checkoutPreviewConfig || {});
         panel.querySelector("[data-remembered-methods-slot] .payment-methods")?.scrollIntoView({
@@ -311,6 +430,8 @@
     const rememberedPaymentPanel = ensureRememberedPaymentPanel(paymentMethods);
     const rememberedPaymentExpanded = rememberedPaymentPanel?.dataset.accordionExpanded === "true";
     const rememberedMethodsSlot = rememberedPaymentPanel?.querySelector("[data-remembered-methods-slot]");
+
+    renderRememberedPaymentPanel(rememberedPaymentPanel, config);
 
     if (paymentMethods) {
       if (rememberedPaymentEnabled && rememberedPaymentExpanded && rememberedMethodsSlot) {

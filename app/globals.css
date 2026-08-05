@@ -18,6 +18,10 @@
   box-sizing: border-box;
 }
 
+:root {
+  --UI-main-color: #1473e6;
+}
+
 html,
 body {
   min-height: 100%;
@@ -80,8 +84,8 @@ button {
 }
 
 .settings-tab.is-active {
-  border-color: #675cff;
-  color: #675cff;
+  border-color: var(--UI-main-color);
+  color: var(--UI-main-color);
 }
 
 .tab-icon {
@@ -174,8 +178,8 @@ button {
 }
 
 .toggle-control input:checked + .toggle-track {
-  border-color: #1473e6;
-  background: #1473e6;
+  border-color: var(--UI-main-color);
+  background: var(--UI-main-color);
 }
 
 .toggle-control input:checked + .toggle-track .toggle-thumb {
@@ -194,6 +198,14 @@ button {
   color: #3e444d;
   font-size: 15px;
   line-height: 22px;
+}
+
+.setting-field.is-disabled {
+  color: #7b828d;
+}
+
+.setting-field.is-disabled .select-control {
+  opacity: 0.65;
 }
 
 .select-control {
@@ -346,7 +358,7 @@ button {
 
 .viewport-button:focus-visible,
 .settings-tab:focus-visible {
-  outline: 2px solid #126df3;
+  outline: 2px solid var(--UI-main-color);
   outline-offset: 2px;
 }
 

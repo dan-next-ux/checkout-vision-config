@@ -43,6 +43,24 @@ const paymentMethodOptions = [
 ];
 
 const defaultPaymentMethods = Object.fromEntries(paymentMethodOptions.map((method) => [method.id, true]));
+const rememberedPaymentTypeOptions = [
+  {
+    id: "card",
+    label: "Debit/Credit Card"
+  },
+  {
+    id: "apple-pay",
+    label: "Apple Pay"
+  },
+  {
+    id: "paypal",
+    label: "PayPal"
+  },
+  {
+    id: "nextpay",
+    label: "Next Pay"
+  }
+];
 const defaultThemeStylesheet = "Next_Revision.vars.css";
 const themeStorageKey = "checkout-config-theme-stylesheet";
 const themeStylesheetOptions = [
@@ -120,6 +138,7 @@ export default function Home() {
   const [viewport, setViewport] = useState("desktop");
   const [expressPaymentsEnabled, setExpressPaymentsEnabled] = useState(true);
   const [rememberLastPaymentEnabled, setRememberLastPaymentEnabled] = useState(false);
+  const [rememberedPaymentType, setRememberedPaymentType] = useState("card");
   const [existingUserFlowEnabled, setExistingUserFlowEnabled] = useState(false);
   const [paymentMethods, setPaymentMethods] = useState(defaultPaymentMethods);
   const [themeStylesheet, setThemeStylesheet] = useState(defaultThemeStylesheet);
@@ -138,6 +157,7 @@ export default function Home() {
         config: {
           expressPaymentsEnabled,
           rememberLastPaymentEnabled,
+          rememberedPaymentType,
           existingUserFlowEnabled,
           themeStylesheet,
           paymentMethods
@@ -145,7 +165,7 @@ export default function Home() {
       },
       window.location.origin
     );
-  }, [expressPaymentsEnabled, rememberLastPaymentEnabled, existingUserFlowEnabled, themeStylesheet, paymentMethods]);
+  }, [expressPaymentsEnabled, rememberLastPaymentEnabled, rememberedPaymentType, existingUserFlowEnabled, themeStylesheet, paymentMethods]);
 
   useEffect(() => {
     const storedThemeStylesheet = window.localStorage.getItem(themeStorageKey);
@@ -242,6 +262,23 @@ export default function Home() {
                   <span className="toggle-track" aria-hidden="true">
                     <span className="toggle-thumb" />
                   </span>
+                </span>
+              </label>
+              <label className={`setting-field${rememberLastPaymentEnabled ? "" : " is-disabled"}`} htmlFor="remembered-payment-type">
+                <span>Remembered payment type</span>
+                <span className="select-control">
+                  <select
+                    id="remembered-payment-type"
+                    value={rememberedPaymentType}
+                    disabled={!rememberLastPaymentEnabled}
+                    onChange={(event) => setRememberedPaymentType(event.target.value)}
+                  >
+                    {rememberedPaymentTypeOptions.map((option) => (
+                      <option value={option.id} key={option.id}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
                 </span>
               </label>
             </section>

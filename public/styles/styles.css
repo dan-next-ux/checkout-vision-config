@@ -111,7 +111,7 @@ a {
 
 .theme-logo {
   height: 24px;
-  background-image: var(--icon-logo-default, url("../images/new-next-logo.svg"));
+  background-image: var(--icon-logo-default, url("/images/new-next-logo.svg"));
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -642,7 +642,7 @@ a {
 }
 
 .existing-user-flow {
-  gap: 16px;
+  gap: 32px;
 }
 
 .existing-user-flow[hidden],
@@ -652,7 +652,7 @@ a {
 }
 
 .existing-user-screen {
-  gap: 6px;
+  gap: 16px;
 }
 
 .existing-user-intro {
@@ -672,11 +672,11 @@ a {
 .existing-user-intro p,
 .existing-password-heading p {
   margin: 0;
-  font-family: var(--global-body-1-font-family, "Next Display Text", Arial, sans-serif);
-  font-size: var(--global-body-1-font-size, 16px);
-  font-weight: var(--global-body-1-font-weight, 400);
-  line-height: var(--global-body-1-line-height, 1.5);
-  letter-spacing: var(--global-body-1-letter-spacing, 0);
+  font-family: var(--global-subtitle-1-font-family, "Next Display Text", Arial, sans-serif);
+  font-size: var(--global-subtitle-1-font-size, 16px);
+  font-weight: var(--global-subtitle-1-font-weight, 400);
+  line-height: var(--global-subtitle-1-line-height, 1.5);
+  letter-spacing: var(--global-subtitle-1-letter-spacing, 0);
 }
 
 .existing-options-stack,
@@ -773,11 +773,11 @@ a {
 
 .existing-signin-copy p {
   margin: 0;
-  font-family: var(--global-body-1-font-family, "Next Display Text", Arial, sans-serif);
-  font-size: var(--global-body-1-font-size, 16px);
-  font-weight: var(--global-body-1-font-weight, 400);
-  line-height: var(--global-body-1-line-height, 1.5);
-  letter-spacing: var(--global-body-1-letter-spacing, 0);
+  font-family: var(--global-subtitle-1-font-family, "Next Display Text", Arial, sans-serif);
+  font-size: var(--global-subtitle-1-font-size, 16px);
+  font-weight: var(--global-subtitle-1-font-weight, 400);
+  line-height: var(--global-subtitle-1-line-height, 1.5);
+  letter-spacing: var(--global-subtitle-1-letter-spacing, 0);
 }
 
 .existing-card-kicker {
@@ -793,7 +793,7 @@ a {
 }
 
 .existing-card-kicker img {
-  width: 10px;
+  width: 12px;
   height: 12px;
 }
 
@@ -2211,6 +2211,11 @@ a {
   padding-top: 8px;
 }
 
+.remembered-card-summary.is-single-line {
+  align-items: center;
+  min-height: 42px;
+}
+
 .remembered-card-copy {
   display: flex;
   flex: 1 1 auto;
@@ -2294,6 +2299,20 @@ a {
   height: 16px;
 }
 
+.remembered-logo-visa {
+  display: inline-flex;
+  width: 37px;
+  height: 16px;
+  align-items: center;
+  justify-content: center;
+  color: #1434cb;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 800;
+  line-height: 16px;
+}
+
 .remembered-logo-nextpay,
 .remembered-logo-pay-in-3 {
   width: 43px;
@@ -2363,6 +2382,35 @@ a {
 
 .remembered-pay-now {
   min-height: 44px;
+}
+
+.remembered-pay-now.remembered-pay-now-apple {
+  gap: 4px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+  text-transform: none;
+}
+
+.remembered-pay-now.remembered-pay-now-paypal {
+  border-color: #ffc439;
+  background: #ffc439;
+  color: #111318;
+  font-weight: 500;
+  text-transform: none;
+}
+
+.remembered-pay-now.remembered-pay-now-paypal:hover,
+.remembered-pay-now.remembered-pay-now-paypal:active {
+  background: #f5b82f;
+}
+
+.remembered-paypal-button-wordmark {
+  color: #003087;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 800;
 }
 
 .remembered-payment-terms {

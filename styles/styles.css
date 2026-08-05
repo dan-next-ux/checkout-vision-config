@@ -2211,6 +2211,11 @@ a {
   padding-top: 8px;
 }
 
+.remembered-card-summary.is-single-line {
+  align-items: center;
+  min-height: 42px;
+}
+
 .remembered-card-copy {
   display: flex;
   flex: 1 1 auto;
@@ -2294,6 +2299,20 @@ a {
   height: 16px;
 }
 
+.remembered-logo-visa {
+  display: inline-flex;
+  width: 37px;
+  height: 16px;
+  align-items: center;
+  justify-content: center;
+  color: #1434cb;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 800;
+  line-height: 16px;
+}
+
 .remembered-logo-nextpay,
 .remembered-logo-pay-in-3 {
   width: 43px;
@@ -2363,6 +2382,35 @@ a {
 
 .remembered-pay-now {
   min-height: 44px;
+}
+
+.remembered-pay-now.remembered-pay-now-apple {
+  gap: 4px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+  text-transform: none;
+}
+
+.remembered-pay-now.remembered-pay-now-paypal {
+  border-color: #ffc439;
+  background: #ffc439;
+  color: #111318;
+  font-weight: 500;
+  text-transform: none;
+}
+
+.remembered-pay-now.remembered-pay-now-paypal:hover,
+.remembered-pay-now.remembered-pay-now-paypal:active {
+  background: #f5b82f;
+}
+
+.remembered-paypal-button-wordmark {
+  color: #003087;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 800;
 }
 
 .remembered-payment-terms {
