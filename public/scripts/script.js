@@ -142,6 +142,36 @@
     `;
   }
 
+  function rememberedSelectedMethodMarkup(type) {
+    const logo = {
+      card: paymentLogoMarkup("mastercard"),
+      "apple-pay": paymentLogoMarkup("apple-pay"),
+      paypal: paymentLogoMarkup("paypal"),
+      nextpay: paymentLogoMarkup("nextpay")
+    }[type];
+    const copy = {
+      card: `
+        <span class="payment-copy">
+          <small>Debit/Credit Card</small>
+          <strong>Monzo &middot;&middot;&middot;&middot; 1234</strong>
+        </span>
+      `,
+      "apple-pay": '<span class="payment-copy"><strong>Apple Pay</strong></span>',
+      paypal: '<span class="payment-copy"><strong>PayPal</strong></span>',
+      nextpay: '<span class="payment-copy"><strong>Next Pay</strong></span>'
+    }[type];
+
+    return `
+      <button class="payment-method remembered-selected-method is-selected" type="button" role="radio" aria-checked="true" data-remembered-selected-method>
+        <span class="payment-method-main">
+          <span class="radio-dot" aria-hidden="true"></span>
+          ${copy}
+        </span>
+        <span class="remembered-selected-method-logo">${logo}</span>
+      </button>
+    `;
+  }
+
   function rememberedOtherPaymentMethods(type, config = {}) {
     const enabledMethods = config.paymentMethods || {};
     const isEnabled = (method) => enabledMethods[method] !== false;
@@ -184,14 +214,23 @@
     const logos = panel.querySelector("[data-remembered-logos]");
     const payButton = panel.querySelector("[data-remembered-pay-now]");
     const paymentMethods = rememberedOtherPaymentMethods(type, config);
+    const isExpanded = panel.dataset.accordionExpanded === "true";
 
     panel.dataset.rememberedPaymentType = type;
     if (summary) {
-      summary.innerHTML = `
-        ${rememberedSummaryMarkup(type)}
-        <button class="remembered-change" type="button">Change</button>
-      `;
-      summary.classList.toggle("is-single-line", type !== "card");
+      summary.innerHTML = isExpanded
+        ? `
+          <div class="remembered-card-summary-header">
+            <button class="remembered-change" type="button">Change</button>
+          </div>
+          ${rememberedSelectedMethodMarkup(type)}
+        `
+        : `
+          ${rememberedSummaryMarkup(type)}
+          <button class="remembered-change" type="button">Change</button>
+        `;
+      summary.classList.toggle("is-single-line", !isExpanded && type !== "card");
+      summary.classList.toggle("is-change-mode", isExpanded);
     }
     if (logos) {
       logos.innerHTML = paymentMethods.map(paymentLogoMarkup).join("");
@@ -223,6 +262,23 @@
     method.setAttribute("aria-checked", selected ? "true" : "false");
   }
 
+  function selectRememberedPaymentMethod(panel) {
+    const rememberedMethod = panel?.querySelector("[data-remembered-selected-method]");
+    const cardButton = document.querySelector("[data-payment-method='card']");
+    const cardPanel = document.querySelector("[data-config-payment-panel='card']");
+
+    document.querySelectorAll(".payment-method").forEach((method) => {
+      setPaymentMethodSelected(method, method === rememberedMethod);
+    });
+
+    if (cardButton) {
+      cardButton.setAttribute("aria-expanded", "false");
+    }
+    if (cardPanel) {
+      cardPanel.hidden = true;
+    }
+  }
+
   function setSavedCardPaymentLabels(isSavedCardFlow) {
     const label = isSavedCardFlow ? "Add New Credit/Debit Card" : "Credit / Debit Card";
 
@@ -239,17 +295,18 @@
   function applyRememberedExpandedPaymentState(config = {}) {
     const rememberedType = rememberedPaymentTypeFromConfig(config);
     const rememberedMethod = rememberedType === "card" ? null : document.querySelector(`[data-config-payment-method='${rememberedType}']`);
+    const rememberedSelectedMethod = document.querySelector("[data-remembered-selected-method]");
     const cardButton = document.querySelector("[data-payment-method='card']");
     const cardPanel = document.querySelector("[data-config-payment-panel='card']");
 
     setSavedCardPaymentLabels(rememberedType === "card");
 
     document.querySelectorAll(".payment-method").forEach((method) => {
-      setPaymentMethodSelected(method, method === rememberedMethod);
+      setPaymentMethodSelected(method, method === rememberedSelectedMethod);
     });
 
     if (rememberedMethod) {
-      rememberedMethod.hidden = false;
+      rememberedMethod.hidden = true;
     }
 
     if (cardButton && cardPanel && rememberedType !== "card") {
@@ -405,9 +462,15 @@
       paymentMethods.insertAdjacentElement("afterend", panel);
 
       panel.querySelector("[data-remembered-summary]")?.addEventListener("click", (event) => {
+        if (event.target.closest("[data-remembered-selected-method]")) {
+          selectRememberedPaymentMethod(panel);
+          return;
+        }
+
         if (!event.target.closest(".remembered-change")) {
           return;
         }
+
         panel.dataset.accordionExpanded = "true";
         applyCheckoutConfig(window.checkoutPreviewConfig || {});
         panel.querySelector("[data-remembered-methods-slot] .payment-methods")?.scrollIntoView({
@@ -1732,11 +1795,16 @@
       cardPanel.hidden = true;
     }
 
+    function clearRememberedPaymentSelection() {
+      setPaymentMethodSelected(document.querySelector("[data-remembered-selected-method]"), false);
+    }
+
     function expandCard() {
       if (!cardButton || !cardPanel) {
         return;
       }
 
+      clearRememberedPaymentSelection();
       paymentMethods.forEach((method) => {
         method.classList.remove("is-selected");
         method.setAttribute("aria-checked", "false");
@@ -1756,6 +1824,7 @@
         }
 
         collapseCard();
+        clearRememberedPaymentSelection();
         method.classList.add("is-selected");
         method.setAttribute("aria-checked", "true");
       });

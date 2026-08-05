@@ -2211,9 +2211,35 @@ a {
   padding-top: 8px;
 }
 
+.remembered-card-summary.is-change-mode {
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 0;
+}
+
 .remembered-card-summary.is-single-line {
   align-items: center;
   min-height: 42px;
+}
+
+.remembered-card-summary-header {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.remembered-selected-method {
+  min-height: 70px;
+}
+
+.remembered-selected-method .payment-copy small {
+  color: var(--text-secondary);
+}
+
+.remembered-selected-method-logo {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
 }
 
 .remembered-card-copy {
